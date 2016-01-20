@@ -773,15 +773,17 @@ void ScanButtonsAction() {
     }
     if (isButtonCorrectionPressed) {
         isButtonCorrectionPressed = 0;
-        if (timeMinutes >= 30) {
-            timeHours++;
-            NormalizeTime();
+        if (currentWorkMode == ShowTimeMode) {
+            if (timeMinutes >= 30) {
+                timeHours++;
+                NormalizeTime();
+            }
+            timeMinutes  = 0;
+            timeSeconds  = 0;
+            timeMSeconds = 0;
+            timeUSeconds = 0;
+            timeNSeconds = 0;
         }
-        timeMinutes  = 0;
-        timeSeconds  = 0;
-        timeMSeconds = 0;
-        timeUSeconds = 0;
-        timeNSeconds = 0;
     }
 }
 
