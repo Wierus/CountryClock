@@ -3,7 +3,7 @@
 
 #include <xc.h>
 
-#define	TasksQueueSize 10
+#define	TasksQueueSize 8
 
 typedef void (*TPtr)(void);
 
