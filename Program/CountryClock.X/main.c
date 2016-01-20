@@ -499,7 +499,7 @@ void ScanButtonsTask() {
 void FillIndicatorsWithTime() {
     indicatorValues[0] = (timeHours < 10) ? SymbolNull : GetIndicatorDigit(GetD1OfU08(timeHours));
     indicatorValues[1] = GetIndicatorDigit(GetD0OfU08(timeHours));
-    indicatorValues[2] = (timeSeconds & 1) ? SymbolLine : SymbolNull;
+    indicatorValues[2] = (timeMSeconds >= 500) ? SymbolLine : SymbolNull;
     indicatorValues[3] = GetIndicatorDigit(GetD1OfU08(timeMinutes));
     indicatorValues[4] = GetIndicatorDigit(GetD0OfU08(timeMinutes));
 }
