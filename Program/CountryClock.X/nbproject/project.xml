@@ -6,9 +6,9 @@
             <name>CountryClock</name>
             <creation-uuid>1ca30a81-a52f-4143-9f9b-932067e20093</creation-uuid>
             <make-project-type>0</make-project-type>
-            <c-extensions/>
+            <c-extensions>c</c-extensions>
             <cpp-extensions/>
-            <header-extensions/>
+            <header-extensions>h</header-extensions>
             <asminc-extensions/>
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects/>
