@@ -1,0 +1,21 @@
+# Program ignore files
+*.cmf
+*.elf
+*.hex
+*.hxl
+*.lst
+*.map
+*.mum
+*.obj
+*.p1
+*.p1.d
+*.pre
+*.rlf
+*.sdb
+*.sym
+
+# Scheme ignore files
+*.dbk
+*.lbk
+*.pwi
+*.sdf
