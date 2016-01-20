@@ -35,7 +35,6 @@
                    displayName="Important Files"
                    projectFiles="false">
       <itemPath>Makefile</itemPath>
-      <itemPath>description.txt</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
