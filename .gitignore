@@ -13,6 +13,7 @@
 *.rlf
 *.sdb
 *.sym
+funclist
 
 # Scheme ignore files
 *.dbk
