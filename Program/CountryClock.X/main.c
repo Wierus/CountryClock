@@ -270,7 +270,7 @@ void ActionAtPowerOn();
 
 void ActionAtPowerOff();
 
-void InitPins();
+inline void InitPins();
 
 /** Обработчик прерывания. Вызывается по переполненеию TMR0 каждые T_INT секунд.
  */
@@ -802,17 +802,13 @@ void ActionAtPowerOff() {
     TRISB = 0b11111111;
 }
 
-void InitOptionReg();
+inline void InitOptionReg();
+inline void InitIntConReg();
+inline void InitADCon0Reg();
+inline void InitADCon1Reg();
+inline void InitAnSelReg();
 
-void InitIntConReg();
-
-void InitADCon0Reg();
-
-void InitADCon1Reg();
-
-void InitAnSelReg();
-
-void InitRegisters() {
+inline void InitRegisters() {
     InitOptionReg();
     InitIntConReg();
     InitADCon0Reg();
@@ -820,7 +816,7 @@ void InitRegisters() {
     InitAnSelReg();
 }
 
-void InitOptionReg() {
+inline void InitOptionReg() {
     /** OPTION_REG: bit 2-0
      * PS<2:0>: Prescaler Rate Select bits
      * BIT VALUE | TMR0 RATE | WDT RATE
@@ -866,7 +862,7 @@ void InitOptionReg() {
     OPTION_REGbits.nRBPU = 1;
 }
 
-void InitIntConReg() {
+inline void InitIntConReg() {
     /** INTCON: bit 0
      * RBIF: RB Port Change Interrupt Flag bit
      * A mismatch condition will continue to set flag bit RBIF. Reading PORTB will end the mismatch condition and allow flag bit RBIF to be cleared.
@@ -915,7 +911,7 @@ void InitIntConReg() {
     INTCONbits.GIE = 0;
 }
 
-void InitADCon0Reg() {
+inline void InitADCon0Reg() {
     /** ADCON0: bit 0
      * ADON: A/D On bit
      * 1 = A/D converter module is operating
@@ -956,7 +952,7 @@ void InitADCon0Reg() {
      */
 }
 
-void InitADCon1Reg() {
+inline void InitADCon1Reg() {
     /** ADCON1: bit 3-0
      * Unimplemented: Read as '0'
      */
@@ -981,7 +977,7 @@ void InitADCon1Reg() {
      */
 }
 
-void InitAnSelReg() {
+inline void InitAnSelReg() {
     /** ANSEL: bit 6-0
      * ANS<6:0>: Analog Input Select bits
      * Bits select input function on corresponding AN<6:0> pins.
@@ -997,7 +993,7 @@ void InitAnSelReg() {
     ANSELbits.ANS6 = 0;
 }
 
-void InitPins() {
+inline void InitPins() {
     Indicator0Pin = IndicatorOff;
     Indicator1Pin = IndicatorOff;
     Indicator2Pin = IndicatorOff;
