@@ -1,3 +1,7 @@
+/** TaskManager.c
+ * v.1.4
+ */
+
 #include "TaskManager.h"
 
 void Idle() {
@@ -8,20 +12,20 @@ TPtr pIdle = Idle;
 void TaskManager() {
     di();
     TPtr pTask = pIdle;
-    for (unsigned char i = 0; i != TasksQueueSize; i++) {
+    for (unsigned char i = 0; i != TaskManagerQueueSize; i++) {
         pTask = TasksQueue[i];
         // если найдена реальная задача
         if (pTask != pIdle) {
             // если таймер для нее равен нулю
             if (TimersQueue[i] == 0) {
                 // сдвинуть все задачи до найденной
-                for (unsigned char j = i; j != TasksQueueSize - 1; j++) {
+                for (unsigned char j = i; j != TaskManagerQueueSize - 1; j++) {
                     TasksQueue[j] = TasksQueue[j + 1];
                     TimersQueue[j] = TimersQueue[j + 1];
                 }
                 // в конец очереди установить задачу-заглушку
-                TasksQueue[TasksQueueSize - 1] = pIdle;
-                TimersQueue[TasksQueueSize - 1] = 0;
+                TasksQueue[TaskManagerQueueSize - 1] = pIdle;
+                TimersQueue[TaskManagerQueueSize - 1] = 0;
                 // задача найдена, завершить поиск
                 break;
             }
@@ -37,13 +41,13 @@ void TaskManager() {
             break;
         }
     }
-    ei();
     pTask();
+    ei();
 }
 
 void TimerService() {
     di();
-    for (unsigned char i = 0; i != TasksQueueSize; i++) {
+    for (unsigned char i = 0; i != TaskManagerQueueSize; i++) {
         // если найдена реальная задача
         if (TasksQueue[i] != pIdle) {
             // если таймер для нее не равен нулю
@@ -62,11 +66,11 @@ void TimerService() {
 
 void AddTask(TPtr pTask, TTimer time) {
     di();
-    if (TasksQueue[TasksQueueSize - 1] != pIdle) {
+    if (TasksQueue[TaskManagerQueueSize - 1] != pIdle) {
         // ошибка, нет свободного места в очереди задач
         NOP();
     }
-    for (unsigned char i = 0; i != TasksQueueSize; i++) {
+    for (unsigned char i = 0; i != TaskManagerQueueSize; i++) {
         // если задача уже есть в очереди
         if (TasksQueue[i] == pTask) {
             // не добавлять ее
@@ -83,8 +87,27 @@ void AddTask(TPtr pTask, TTimer time) {
     ei();
 }
 
+void RemoveTask(TPtr pTask) {
+    di();
+    for (unsigned char i = 0; i != TaskManagerQueueSize; i++) {
+        // если задача найдена
+        if (TasksQueue[i] == pTask) {
+            // сдвинуть все задачи до найденной
+            for (unsigned char j = i; j != TaskManagerQueueSize - 1; j++) {
+                TasksQueue[j] = TasksQueue[j + 1];
+                TimersQueue[j] = TimersQueue[j + 1];
+            }
+            // в конец очереди установить задачу-заглушку
+            TasksQueue[TaskManagerQueueSize - 1] = pIdle;
+            TimersQueue[TaskManagerQueueSize - 1] = 0;
+            break;
+        }
+    }
+    ei();
+}
+
 void InitRTOS() {
-    for (unsigned char i = 0; i != TasksQueueSize; i++) {
+    for (unsigned char i = 0; i != TaskManagerQueueSize; i++) {
         TasksQueue[i] = pIdle;
         TimersQueue[i] = 0;
     }

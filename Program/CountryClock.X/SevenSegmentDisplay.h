@@ -1,5 +1,43 @@
+/** SevenSegmentDisplay.h
+ * v.1.2
+ */
+
 #ifndef SEVENSEGMENTDISPLAY_H
 #define	SEVENSEGMENTDISPLAY_H
+
+#include "Pins.h"
+
+#ifndef SevenSegmentDisplaySAMask
+    #error "SevenSegmentDisplaySAMask symbol is not defined, you should define it in file Pins.h before using this library"
+#endif
+
+#ifndef SevenSegmentDisplaySBMask
+    #error "SevenSegmentDisplaySBMask symbol is not defined, you should define it in file Pins.h before using this library"
+#endif
+
+#ifndef SevenSegmentDisplaySCMask
+    #error "SevenSegmentDisplaySCMask symbol is not defined, you should define it in file Pins.h before using this library"
+#endif
+
+#ifndef SevenSegmentDisplaySDMask
+    #error "SevenSegmentDisplaySDMask symbol is not defined, you should define it in file Pins.h before using this library"
+#endif
+
+#ifndef SevenSegmentDisplaySEMask
+    #error "SevenSegmentDisplaySEMask symbol is not defined, you should define it in file Pins.h before using this library"
+#endif
+
+#ifndef SevenSegmentDisplaySFMask
+    #error "SevenSegmentDisplaySFMask symbol is not defined, you should define it in file Pins.h before using this library"
+#endif
+
+#ifndef SevenSegmentDisplaySGMask
+    #error "SevenSegmentDisplaySGMask symbol is not defined, you should define it in file Pins.h before using this library"
+#endif
+
+#ifndef SevenSegmentDisplaySHMask
+    #error "SevenSegmentDisplaySHMask symbol is not defined, you should define it in file Pins.h before using this library"
+#endif
 
 /** Значения вывода индикатора с общим анодом для его включения.
  */
@@ -37,22 +75,22 @@
  */
 typedef enum IndicatorSegments {
 
-    SegmentA = 0b00000001,
-    SegmentB = 0b00000010,
-    SegmentC = 0b00000100,
-    SegmentD = 0b00001000,
-    SegmentE = 0b00010000,
-    SegmentF = 0b00100000,
-    SegmentG = 0b01000000,
-    SegmentH = 0b10000000,
-
+    SegmentA = SevenSegmentDisplaySAMask,
+    SegmentB = SevenSegmentDisplaySBMask,
+    SegmentC = SevenSegmentDisplaySCMask,
+    SegmentD = SevenSegmentDisplaySDMask,
+    SegmentE = SevenSegmentDisplaySEMask,
+    SegmentF = SevenSegmentDisplaySFMask,
+    SegmentG = SevenSegmentDisplaySGMask,
+    SegmentH = SevenSegmentDisplaySHMask,
+    
 } IndicatorSegments;
 
 /** Символы на индикаторе.
  */
 typedef enum IndicatorSymbols {
 
-    SymbolNull         = 0b00000000,
+    SymbolNull         = 0,
     SymbolDigit0       = SegmentA | SegmentB | SegmentC | SegmentD | SegmentE | SegmentF,
     SymbolDigit1       = SegmentB | SegmentC,
     SymbolDigit2       = SegmentA | SegmentB | SegmentD | SegmentE | SegmentG,
@@ -88,5 +126,64 @@ typedef enum IndicatorSymbols {
 } IndicatorSymbols;
 
 unsigned char GetIndicatorDigit(unsigned char digit);
+
+void FillIndicators1WithSymbolNull(unsigned char* indicatorValues);
+
+void FillIndicators2WithSymbolNull(unsigned char* indicatorValues);
+
+void FillIndicators3WithSymbolNull(unsigned char* indicatorValues);
+
+void FillIndicators4WithSymbolNull(unsigned char* indicatorValues);
+
+void FillIndicators5WithSymbolNull(unsigned char* indicatorValues);
+
+/* Выводит символ "Минус" на 1 семисегментный индикатор.
+ * @param indicatorValues Массив, в который будут выведены символы. Массив должен иметь длину равную одному.
+ */
+void FillIndicators1WithSymbolLine(unsigned char* indicatorValues);
+
+/* Выводит символ "Минус" на 2 семисегментных индикатора.
+ * @param indicatorValues Массив, в который будут выведены символы. Массив должен иметь длину равную двум.
+ */
+void FillIndicators2WithSymbolLine(unsigned char* indicatorValues);
+
+/* Выводит символ "Минус" на 3 семисегментных индикатора.
+ * @param indicatorValues Массив, в который будут выведены символы. Массив должен иметь длину равную трем.
+ */
+void FillIndicators3WithSymbolLine(unsigned char* indicatorValues);
+
+/* Выводит символ "Минус" на 4 семисегментных индикатора.
+ * @param indicatorValues Массив, в который будут выведены символы. Массив должен иметь длину равную четырем.
+ */
+void FillIndicators4WithSymbolLine(unsigned char* indicatorValues);
+
+/* Выводит символ "Минус" на 5 семисегментных индикатора.
+ * @param indicatorValues Массив, в который будут выведены символы. Массив должен иметь длину равную пяти.
+ */
+void FillIndicators5WithSymbolLine(unsigned char* indicatorValues);
+
+/** Выводит число в диапазоне от -99 до 255 с шагом 1 на 3 семисегментных индикатора.
+ * @param indicatorValues Массив, в который будут выведены символы. Массив должен иметь длину равную трем.
+ * @param sign Отрицательный знак числа. 0 - положительное значение или ноль, 1 - отрицательное значение.
+ * @param number Модуль выводимого числа в диапазоне от 0 до 255.
+ */
+void FillIndicators3WithNumber(unsigned char* indicatorValues, unsigned char sign, unsigned char number);
+
+/** Выводит число в диапазоне от -99.9 до 99.9 с шагом 0.1 или в диапазоне от 100 до 255 с шагом 1 на индикатор символа "минус" и 3 семисегментных индикатора.
+ * @param indicatorValues Массив, в который будут выведены символы. Массив должен иметь длину равную трем.
+ * @param indicatorSign Указатель на переменную, в которую будет записано состояние индикатора символа "минус" (включен или выключен).
+ * @param sign Отрицательный знак числа. 0 - положительное значение или ноль, 1 - отрицательное значение.
+ * @param number Модуль выводимого числа в диапазоне от 0 до 255 (целая часть).
+ * @param fractionalPart Дробная часть выводимого числа от 0 до 9.
+ */
+void FillIndicators3AndSignWithNumber(unsigned char* indicatorValues, unsigned char* indicatorSign, unsigned char sign, unsigned char number, unsigned char fractionalPart);
+
+/** Выводит число в диапазоне от -99.9 до 255.0 с шагом 0.1 на 4 семисегментных индикатора.
+ * @param indicatorValues Массив, в который будут выведены символы. Массив должен иметь длину равную четырем.
+ * @param sign Отрицательный знак числа. 0 - положительное значение или ноль, 1 - отрицательное значение.
+ * @param number Модуль выводимого числа в диапазоне от 0 до 255 (целая часть).
+ * @param fractionalPart Дробная часть выводимого числа от 0 до 9.
+ */
+void FillIndicators4WithNumber(unsigned char* indicatorValues, unsigned char sign, unsigned char number, unsigned char fractionalPart);
 
 #endif /* SEVENSEGMENTDISPLAY_H */

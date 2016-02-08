@@ -1,3 +1,7 @@
+/** SR74HC164.c
+ * v.1.1
+ */
+
 #include "SR74HC164.h"
 
 void SR74HC164Initialize() {
@@ -10,8 +14,7 @@ void SR74HC164SendByte(unsigned char value) {
     while (1) {
         index--;
         SR74HC164ClockPin = LowPinLevel;
-        SR74HC164DataPin = (value & (1 << index)) ? HighPinLevel : LowPinLevel;
-        SR74HC164DataPin = ~SR74HC164DataPin;
+        SR74HC164DataPin = (value & (1 << index)) ? LowPinLevel : HighPinLevel;
         SR74HC164ClockPin = HighPinLevel;
         if (!index) {
             break;

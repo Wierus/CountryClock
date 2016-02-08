@@ -21,6 +21,16 @@
 #define Indicator4Pin          RB4
 #define Indicator4PinDirection TRISB4
 
+// Маски сегментов индикатора
+#define SevenSegmentDisplaySAMask 0b00000001
+#define SevenSegmentDisplaySBMask 0b00000010
+#define SevenSegmentDisplaySCMask 0b00000100
+#define SevenSegmentDisplaySDMask 0b00001000
+#define SevenSegmentDisplaySEMask 0b00010000
+#define SevenSegmentDisplaySFMask 0b00100000
+#define SevenSegmentDisplaySGMask 0b01000000
+#define SevenSegmentDisplaySHMask 0b10000000
+
 // Выводы сдвигового регистра
 #define SR74HC164ClockPin          RB6
 #define SR74HC164ClockPinDirection TRISB6

@@ -1,3 +1,7 @@
+/** SR74HC164.h
+ * v.1.1
+ */
+
 #ifndef SR74HC164_H
 #define	SR74HC164_H
 

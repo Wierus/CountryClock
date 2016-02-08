@@ -1,3 +1,7 @@
+/** Math.h
+ * v.1.0
+ */
+
 #ifndef MATH_H
 #define	MATH_H
 

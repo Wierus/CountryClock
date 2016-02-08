@@ -1,3 +1,7 @@
+/** OneWire.h
+ * v.1.0
+ */
+
 #ifndef ONEWIRE_H
 #define	ONEWIRE_H
 

@@ -106,4 +106,20 @@
  */
 #pragma config IESO = OFF
 
+/** Тактовая частота контроллера (Гц).
+ */
+#define F_OSC 4000000.0
+
+/** Коэффициент предделителя для TMR0.
+ */
+#define PRESCALER_RATE (1.0 / 256.0)
+
+/** Длина очереди задач для диспетчера.
+ */
+#define TaskManagerQueueSize 10
+
+/** Тип таймера задач для диспетчера.
+ */
+#define TaskManagerTimerType unsigned char
+
 #endif /* CONFIG_H */

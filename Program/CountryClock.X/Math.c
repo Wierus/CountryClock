@@ -1,3 +1,7 @@
+/** Math.c
+ * v.1.0
+ */
+
 #include "Math.h"
 
 unsigned char GetD0OfU08(unsigned char value) {

@@ -1,3 +1,7 @@
+/** DHT22.c
+ * v.1.0
+ */
+
 #include "DHT22.h"
 #include "Delay.h"
 

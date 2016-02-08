@@ -1,3 +1,7 @@
+/** DHT22.h
+ * v.1.0
+ */
+
 #ifndef DHT22_H
 #define	DHT22_H
 

@@ -1,3 +1,7 @@
+/** OneWire.c
+ * v.1.0
+ */
+
 #include "OneWire.h"
 #include "Delay.h"
 

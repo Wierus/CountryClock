@@ -14,6 +14,8 @@
       <itemPath>SR74HC164.h</itemPath>
       <itemPath>SevenSegmentDisplay.h</itemPath>
       <itemPath>TaskManager.h</itemPath>
+      <itemPath>SevenSegmentDisplayDS18B20.h</itemPath>
+      <itemPath>DS18B20Tasks.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -30,6 +32,8 @@
       <itemPath>SevenSegmentDisplay.c</itemPath>
       <itemPath>TaskManager.c</itemPath>
       <itemPath>main.c</itemPath>
+      <itemPath>SevenSegmentDisplayDS18B20.c</itemPath>
+      <itemPath>DS18B20Tasks.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -39,6 +43,7 @@
   </logicalFolder>
   <sourceRootList>
     <Elem>.</Elem>
+    <Elem>../../../WaterThermostat/Program/WaterThermostat.X</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
