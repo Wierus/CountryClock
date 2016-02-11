@@ -1,5 +1,5 @@
 /** SevenSegmentDisplayDS18B20.h
- * v.1.3
+ * v.1.4
  */
 
 #ifndef SEVENSEGMENTDISPLAYDS18B20_H

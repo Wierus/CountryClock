@@ -1,11 +1,13 @@
 #include "Config.h"
 #include "Delay.h"
 #include "DHT22.h"
+#include "DHT22Tasks.h"
 #include "DS18B20.h"
 #include "DS18B20Tasks.h"
 #include "Math.h"
 #include "Pins.h"
 #include "SevenSegmentDisplay.h"
+#include "SevenSegmentDisplayDHT22.h"
 #include "SevenSegmentDisplayDS18B20.h"
 #include "SR74HC164.h"
 #include "TaskManager.h"
@@ -114,22 +116,6 @@ unsigned short timeNSeconds = 0;
  */
 #define DS18B20Resolution DS18B20Resolution12Bit
 
-/** Результат выполнения операции чтения данных из датчика DHT22.
- */
-DHT22ErrorCodes resultDHT22Read = DHT22ResponseSignalNotDetected;
-
-/** Флаг, показывающий, отображать ли предыдущие значения температуры и влажности с датчика DHT22 при ошибочном чтении.
- */
-bit showDHT22ValueIfReadError = 0;
-
-/** Значение влажности с датчика DHT22.
- */
-DHT22Humidity humidityDHT22Value;
-
-/** Значение температуры с датчика DHT22.
- */
-DHT22Temperature temperatureDHT22Value;
-
 /** Необходимое время удержания кнопки до совершения действия (в единицах T_INT, параметр - в секундах).
  */
 #define ButtonPressedTime     GetTaskManagerTimerTime(1.0)
@@ -213,10 +199,6 @@ unsigned char outputDHT22HumidityTimer = 0;
 /** Задержка до выполнения задачи FillIndicatorsTask (в единицах T_INT, параметр - в секундах).
  */
 #define FillIndicatorsTaskDelay GetTaskManagerTimerTime(0.0)
-
-/** Задержка до выполнения задачи RefreshDHT22Task (в единицах T_INT, параметр - в секундах).
- */
-#define RefreshDHT22TaskDelay   GetTaskManagerTimerTime(5.0)
 
 /** Задержка до выполнения задачи ScanButtonsTask (в единицах T_INT, параметр - в секундах).
  */
@@ -478,12 +460,12 @@ void FillIndicatorsTask() {
 
 void RefreshDS18B20Task() {
     RefreshDS18B20Action();
-    AddTask(DS18B20InitializeSensorTask, DS18B20InitializeSensorTaskDelay);
+    AddTask(DS18B20InitializeSensorTask, 0);
 }
 
 void RefreshDHT22Task() {
     RefreshDHT22Action();
-    AddTask(RefreshDHT22Task, RefreshDHT22TaskDelay);
+    AddTask(DHT22InitializeSensorTask, 0);
 }
 
 void ScanButtonsTask() {
@@ -506,79 +488,11 @@ void FillIndicatorsWithDS18B20Temperature() {
 }
 
 void FillIndicatorsWithDHT22Temperature() {
-    if (resultDHT22Read == DHT22ResponseSignalNotDetected) {
-        indicatorValues[0] = SymbolLine;
-        indicatorValues[1] = SymbolLine;
-        indicatorValues[2] = SymbolLine;
-        indicatorValues[3] = SymbolLine;
-        indicatorValues[4] = SymbolDegree;
-    }
-    else {
-        if (showDHT22ValueIfReadError) {
-            if (temperatureDHT22Value.integerPart >= 100) {
-                // [100; +inf)
-                // Формат: d2 d1 d0. f0
-                indicatorValues[0] = GetIndicatorDigit(GetD2OfU08(temperatureDHT22Value.integerPart));
-                indicatorValues[1] = GetIndicatorDigit(GetD1OfU08(temperatureDHT22Value.integerPart));
-            }
-            else if (temperatureDHT22Value.integerPart >= 10) {
-                // (-inf; -10] или [10; 100)
-                // Формат: s d1 d0. f0
-                indicatorValues[0] = temperatureDHT22Value.sign ? SymbolLine : SymbolNull;
-                indicatorValues[1] = GetIndicatorDigit(GetD1OfU08(temperatureDHT22Value.integerPart));
-            }
-            else {
-                // (-10; 0) или [0; 10)
-                // Формат: _ s d0. f0
-                indicatorValues[0] = SymbolNull;
-                indicatorValues[1] = temperatureDHT22Value.sign ? SymbolLine : SymbolNull;
-            }
-            indicatorValues[2] = GetIndicatorDigit(GetD0OfU08(temperatureDHT22Value.integerPart)) | SymbolDot;
-            indicatorValues[3] = GetIndicatorDigit(temperatureDHT22Value.fractionalPart);
-        }
-        else {
-            indicatorValues[0] = SymbolLine;
-            indicatorValues[1] = SymbolLine;
-            indicatorValues[2] = SymbolLine;
-            indicatorValues[3] = SymbolLine;
-        }
-        if (resultDHT22Read == DHT22OperationOK) {
-            indicatorValues[4] = SymbolDegree;
-        }
-        else {
-            indicatorValues[4] = SymbolDegree | SymbolDot;
-        }
-    }
+    FillIndicators5WithDHT22TemperatureAndSymbolDegree(indicatorValues);
 }
 
 void FillIndicatorsWithDHT22Humidity() {
-    if (resultDHT22Read == DHT22ResponseSignalNotDetected) {
-        indicatorValues[0] = SymbolLine;
-        indicatorValues[1] = SymbolLine;
-        indicatorValues[2] = SymbolLine;
-        indicatorValues[3] = SymbolLine;
-        indicatorValues[4] = SymbolLowerLetterH;
-    }
-    else {
-        if (showDHT22ValueIfReadError) {
-            indicatorValues[0] = (humidityDHT22Value.integerPart >= 100) ? GetIndicatorDigit(GetD2OfU08(humidityDHT22Value.integerPart)) : SymbolNull;
-            indicatorValues[1] = (humidityDHT22Value.integerPart >=  10) ? GetIndicatorDigit(GetD1OfU08(humidityDHT22Value.integerPart)) : SymbolNull;
-            indicatorValues[2] = GetIndicatorDigit(GetD0OfU08(humidityDHT22Value.integerPart)) | SymbolDot;
-            indicatorValues[3] = GetIndicatorDigit(humidityDHT22Value.fractionalPart);
-        }
-        else {
-            indicatorValues[0] = SymbolLine;
-            indicatorValues[1] = SymbolLine;
-            indicatorValues[2] = SymbolLine;
-            indicatorValues[3] = SymbolLine;
-        }
-        if (resultDHT22Read == DHT22OperationOK) {
-            indicatorValues[4] = SymbolLowerLetterH;
-        }
-        else {
-            indicatorValues[4] = SymbolLowerLetterH | SymbolDot;
-        }
-    }
+    FillIndicators5WithDHT22HumidityAndSymbolLowerLetterH(indicatorValues);
 }
 
 // Определение действий для задач
@@ -655,13 +569,6 @@ void RefreshDS18B20Action() {
 }
 
 void RefreshDHT22Action() {
-    resultDHT22Read = ReadDHT22(&humidityDHT22Value, &temperatureDHT22Value);
-    if (resultDHT22Read == DHT22OperationOK) {
-        showDHT22ValueIfReadError = 1;
-    }
-    else if (resultDHT22Read == DHT22ResponseSignalNotDetected) {
-        showDHT22ValueIfReadError = 0;
-    }
 }
 
 void ScanButtonsAction() {

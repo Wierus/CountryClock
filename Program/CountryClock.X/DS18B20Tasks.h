@@ -1,13 +1,9 @@
 /** DS18B20Tasks.h
- * v.1.1
+ * v.1.2
  */
 
 #ifndef DS18B20TASKS_H
 #define	DS18B20TASKS_H
-
-/** Задержка до выполнения задачи DS18B20InitializeSensorTask (в единицах T_INT, параметр - в секундах).
- */
-#define DS18B20InitializeSensorTaskDelay         GetTaskManagerTimerTime(0.0)
 
 /** Задержка до повторного выполнения задачи DS18B20InitializeSensorTask (в единицах T_INT, параметр - в секундах).
  */

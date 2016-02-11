@@ -1,5 +1,5 @@
 /** SevenSegmentDisplayDS18B20.c
- * v.1.3
+ * v.1.4
  */
 
 #include "SevenSegmentDisplayDS18B20.h"
@@ -56,7 +56,7 @@ void FillIndicators5WithDS18B20TemperatureAndSymbolDegree(unsigned char* indicat
             FillIndicators4WithSymbolLine(indicatorValues);
         }
         if (DS18B20ResultGetTemperature != DS18B20OperationOK) {
-            indicatorValues[4] |= SymbolDegree;
+            indicatorValues[4] |= SymbolDot;
         }
     }
 }

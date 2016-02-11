@@ -1,5 +1,5 @@
 /** SevenSegmentDisplay.c
- * v.1.2
+ * v.1.3
  */
 
 #include "SevenSegmentDisplay.h"
@@ -172,5 +172,5 @@ void FillIndicators4WithNumber(unsigned char* indicatorValues, unsigned char sig
         indicatorValues[1] = sign ? SymbolLine : SymbolNull;
     }
     indicatorValues[2] = GetIndicatorDigit(GetD0OfU08(number)) | SymbolDot;
-    indicatorValues[3] = GetIndicatorDigit(GetD3OfU16(fractionalPart));
+    indicatorValues[3] = GetIndicatorDigit(GetD0OfU08(fractionalPart));
 }

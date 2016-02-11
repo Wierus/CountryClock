@@ -1,5 +1,5 @@
 /** DS18B20Tasks.c
- * v.1.1
+ * v.1.2
  */
 
 #include "DS18B20Tasks.h"

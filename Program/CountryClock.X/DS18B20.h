@@ -1,5 +1,5 @@
 /** DS18B20.h
- * v.1.2
+ * v.1.3
  */
 
 #ifndef DS18B20_H
@@ -167,6 +167,10 @@ DS18B20ThermometerResolutions DS18B20DesiredResolution = DS18B20Resolution12Bit;
  */
 DS18B20Temperature DS18B20TemperatureValue;
 
+/** Результат выполнения функции DS18B20InitializeSensor.
+ */
+DS18B20ErrorCodes DS18B20ResultInitializeSensor = DS18B20PrecencePulseNotDetected;
+
 /** Результат выполнения функции DS18B20ConvertTemperature.
  */
 DS18B20ErrorCodes DS18B20ResultConvertTemperature = DS18B20PrecencePulseNotDetected;
@@ -174,10 +178,6 @@ DS18B20ErrorCodes DS18B20ResultConvertTemperature = DS18B20PrecencePulseNotDetec
 /** Результат выполнения функции DS18B20GetTemperature.
  */
 DS18B20ErrorCodes DS18B20ResultGetTemperature = DS18B20PrecencePulseNotDetected;
-
-/** Результат выполнения функции DS18B20InitializeSensor.
- */
-DS18B20ErrorCodes DS18B20ResultInitializeSensor = DS18B20PrecencePulseNotDetected;
 
 /** Флаг, показывающий, что корректное значение температуры уже было получено и сохранено в переменной DS18B20TemperatureValue, которую можно использовать.
  */

@@ -1,44 +1,49 @@
 /** DHT22.c
- * v.1.0
+ * v.1.1
  */
 
 #include "DHT22.h"
 #include "Delay.h"
 
-DHT22ErrorCodes ReadDHT22(DHT22Humidity* humidityValue, DHT22Temperature* temperatureValue) {
+void ReadDHT22() {
     if (SendStartSignal() == DHT22TimeoutReadError) {
-        return DHT22ResponseSignalNotDetected;
+        DHT22ValuesAreCorrect = 0;
+        DHT22ResultRead = DHT22ResponseSignalNotDetected;
+        return;
     }
     unsigned char data[DHT22DataLength];
     if (ReadData(data) == DHT22TimeoutReadError) {
-        return DHT22TimeoutReadError;
+        DHT22ResultRead = DHT22TimeoutReadError;
+        return;
     }
     unsigned char parity = 0;
     for (unsigned char i = 0; i < DHT22DataLength - 1; i++) {
         parity += data[i];
     }
     if (parity != data[DHT22DataLength - 1]) {
-        return DHT22ParityReadError;
+        DHT22ResultRead = DHT22ParityReadError;
+        return;
     }
     unsigned short humidityData    = (data[0] << 8) | data[1];
     unsigned short temperatureData = (data[2] << 8) | data[3];
-    humidityValue -> integerPart = 0;
+    DHT22HumidityValue.integerPart = 0;
     while (humidityData >= 10) {
         humidityData -= 10;
-        humidityValue -> integerPart++;
+        DHT22HumidityValue.integerPart++;
     }
-    humidityValue -> fractionalPart = humidityData;
-    temperatureValue -> sign = (temperatureData & DHT22TemperatureSignMask) ? 1 : 0;
-    if (temperatureValue -> sign) {
+    DHT22HumidityValue.fractionalPart = humidityData;
+    DHT22TemperatureValue.sign = (temperatureData & DHT22TemperatureSignMask) ? 1 : 0;
+    if (DHT22TemperatureValue.sign) {
         temperatureData &= ~DHT22TemperatureSignMask;
     }
-    temperatureValue -> integerPart = 0;
+    DHT22TemperatureValue.integerPart = 0;
     while (temperatureData >= 10) {
         temperatureData -= 10;
-        temperatureValue -> integerPart++;
+        DHT22TemperatureValue.integerPart++;
     }
-    temperatureValue -> fractionalPart = (unsigned char)temperatureData;
-    return DHT22OperationOK;
+    DHT22TemperatureValue.fractionalPart = (unsigned char)temperatureData;
+    DHT22ValuesAreCorrect = 1;
+    DHT22ResultRead = DHT22OperationOK;
 }
 
 DHT22ErrorCodes SendStartSignal() {

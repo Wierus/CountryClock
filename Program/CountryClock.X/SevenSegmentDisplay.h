@@ -1,5 +1,5 @@
 /** SevenSegmentDisplay.h
- * v.1.2
+ * v.1.3
  */
 
 #ifndef SEVENSEGMENTDISPLAY_H

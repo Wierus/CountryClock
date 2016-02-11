@@ -1,5 +1,5 @@
 /** DHT22.h
- * v.1.0
+ * v.1.1
  */
 
 #ifndef DHT22_H
@@ -103,15 +103,26 @@ typedef enum DHT22ErrorCodes {
 
 } DHT22ErrorCodes;
 
-/** Читает данные из датчика и получает значения влажности и температуры.
- * @param humidityValue Возвращаемое значение влажности.
- * @param temperatureValue Возвращаемое значение температуры.
- * @return DHT22OperationOK, если значения влажности и температуры получены успешно.
- * DHT22ResponseSignalNotDetected, если устройство отсутствует на шине.
- * DHT22TimeoutReadError, если произошла ошибка при чтении данных из датчика, датчик не ответил вовремя.
- * DHT22ParityReadError, если произошла ошибка при чтении данных из датчика, один или несколько битов четности не совпадают.
+/** Значение влажности с датчика DHT22.
  */
-DHT22ErrorCodes ReadDHT22(DHT22Humidity* humidityValue, DHT22Temperature* temperatureValue);
+DHT22Humidity DHT22HumidityValue;
+
+/** Значение температуры с датчика DHT22.
+ */
+DHT22Temperature DHT22TemperatureValue;
+
+/** Результат выполнения операции чтения данных из датчика DHT22.
+ */
+DHT22ErrorCodes DHT22ResultRead = DHT22ResponseSignalNotDetected;
+
+/** Флаг, показывающий, что корректные значения влажности и температуры уже были получены и сохранены в переменных DHT22HumidityValue и DHT22TemperatureValue, которые можно использовать.
+ */
+bit DHT22ValuesAreCorrect = 0;
+
+/** Читает данные из датчика и сохраняет полученные значения в переменных: DHT22HumidityValue (влажность) и DHT22TemperatureValue (температура).
+ * Результат выполнения функции сохраняется в переменную DHT22ResultRead.
+ */
+void ReadDHT22();
 
 /** Отправляет сигнал датчику для его включения и ждет ответ.
  * @return DHT22OperationOK, если ответ получен успешно.
