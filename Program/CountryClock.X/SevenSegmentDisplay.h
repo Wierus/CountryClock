@@ -1,10 +1,11 @@
 /** SevenSegmentDisplay.h
- * v.1.3
+ * v.1.4
  */
 
 #ifndef SEVENSEGMENTDISPLAY_H
 #define	SEVENSEGMENTDISPLAY_H
 
+#include "Math.h"
 #include "Pins.h"
 
 #ifndef SevenSegmentDisplaySAMask

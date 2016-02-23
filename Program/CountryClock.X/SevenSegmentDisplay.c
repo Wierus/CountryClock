@@ -1,9 +1,8 @@
 /** SevenSegmentDisplay.c
- * v.1.3
+ * v.1.4
  */
 
 #include "SevenSegmentDisplay.h"
-#include "Math.h"
 
 unsigned char GetIndicatorDigit(unsigned char digit) {
     switch (digit) {

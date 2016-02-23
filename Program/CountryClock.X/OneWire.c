@@ -1,9 +1,8 @@
 /** OneWire.c
- * v.1.0
+ * v.1.1
  */
 
 #include "OneWire.h"
-#include "Delay.h"
 
 void OneWireDriveBusLow() {
     OneWirePinDirection = OutputPinDirection;
@@ -19,13 +18,12 @@ bit OneWireSampleBus() {
 }
 
 bit OneWireResetPulse() {
-    unsigned char result;
     __delay_us(OneWireTimeG);
     OneWireDriveBusLow();
     __delay_us(OneWireTimeH);
     OneWireReleaseBus();
     __delay_us(OneWireTimeI);
-    result = OneWireSampleBus();
+    unsigned char result = OneWireSampleBus();
     __delay_us(OneWireTimeJ);
     return result;
 }

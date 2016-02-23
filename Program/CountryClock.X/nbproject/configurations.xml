@@ -6,18 +6,19 @@
                    projectFiles="true">
       <itemPath>Config.h</itemPath>
       <itemPath>DHT22.h</itemPath>
-      <itemPath>DS18B20.h</itemPath>
       <itemPath>Delay.h</itemPath>
       <itemPath>Math.h</itemPath>
-      <itemPath>OneWire.h</itemPath>
       <itemPath>Pins.h</itemPath>
       <itemPath>SR74HC164.h</itemPath>
       <itemPath>SevenSegmentDisplay.h</itemPath>
       <itemPath>TaskManager.h</itemPath>
-      <itemPath>SevenSegmentDisplayDS18B20.h</itemPath>
-      <itemPath>DS18B20Tasks.h</itemPath>
-      <itemPath>DHT22Tasks.h</itemPath>
       <itemPath>SevenSegmentDisplayDHT22.h</itemPath>
+      <itemPath>DS18B20Async.h</itemPath>
+      <itemPath>OneWireAsync.h</itemPath>
+      <itemPath>DHT22Tasks.h</itemPath>
+      <itemPath>DS18B20.h</itemPath>
+      <itemPath>OneWire.h</itemPath>
+      <itemPath>SevenSegmentDisplayDS18B20Async.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -27,17 +28,18 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>DHT22.c</itemPath>
-      <itemPath>DS18B20.c</itemPath>
       <itemPath>Math.c</itemPath>
-      <itemPath>OneWire.c</itemPath>
       <itemPath>SR74HC164.c</itemPath>
       <itemPath>SevenSegmentDisplay.c</itemPath>
       <itemPath>TaskManager.c</itemPath>
       <itemPath>main.c</itemPath>
-      <itemPath>SevenSegmentDisplayDS18B20.c</itemPath>
-      <itemPath>DS18B20Tasks.c</itemPath>
-      <itemPath>DHT22Tasks.c</itemPath>
       <itemPath>SevenSegmentDisplayDHT22.c</itemPath>
+      <itemPath>DS18B20Async.c</itemPath>
+      <itemPath>OneWireAsync.c</itemPath>
+      <itemPath>DHT22Tasks.c</itemPath>
+      <itemPath>DS18B20.c</itemPath>
+      <itemPath>OneWire.c</itemPath>
+      <itemPath>SevenSegmentDisplayDS18B20Async.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

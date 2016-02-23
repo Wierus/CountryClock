@@ -1,11 +1,12 @@
 /** OneWire.h
- * v.1.0
+ * v.1.1
  */
 
 #ifndef ONEWIRE_H
 #define	ONEWIRE_H
 
 #include "Pins.h"
+#include "Delay.h"
 
 #ifndef OneWirePin
     #error "OneWirePin symbol is not defined, you should define it in file Pins.h before using this library"

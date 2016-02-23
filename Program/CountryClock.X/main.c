@@ -2,13 +2,10 @@
 #include "Delay.h"
 #include "DHT22.h"
 #include "DHT22Tasks.h"
-#include "DS18B20.h"
-#include "DS18B20Tasks.h"
-#include "Math.h"
+#include "DS18B20Async.h"
 #include "Pins.h"
-#include "SevenSegmentDisplay.h"
 #include "SevenSegmentDisplayDHT22.h"
-#include "SevenSegmentDisplayDS18B20.h"
+#include "SevenSegmentDisplayDS18B20Async.h"
 #include "SR74HC164.h"
 #include "TaskManager.h"
 
@@ -442,7 +439,7 @@ void CheckPowerTask() {
             RemoveTask(RefreshDS18B20Task);
             RemoveTask(RefreshDHT22Task);
             RemoveTask(ScanButtonsTask);
-            DS18B20RemoveAllTasks();
+            DS18B20RemoveAllAsyncTasks();
         }
     }
     AddTask(CheckPowerTask, CheckPowerTaskDelay);
@@ -460,7 +457,8 @@ void FillIndicatorsTask() {
 
 void RefreshDS18B20Task() {
     RefreshDS18B20Action();
-    AddTask(DS18B20InitializeSensorTask, 0);
+    DS18B20CommandStage = DS18B20WriteScratchpadCommandStage;
+    AddTask(DS18B20ResetPulseStageTask, 0);
 }
 
 void RefreshDHT22Task() {

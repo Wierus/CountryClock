@@ -1,9 +1,8 @@
 /** DS18B20.c
- * v.1.3
+ * v.1.4
  */
 
 #include "DS18B20.h"
-#include "OneWire.h"
 
 DS18B20ErrorCodes DS18B20SendConvertTCommand() {
     if (OneWireResetPulse() != OneWirePrecencePulse) {

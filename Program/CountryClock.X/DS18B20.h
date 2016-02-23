@@ -1,9 +1,11 @@
 /** DS18B20.h
- * v.1.3
+ * v.1.4
  */
 
 #ifndef DS18B20_H
 #define	DS18B20_H
+
+#include "OneWire.h"
 
 /** Количество байт в уникальном идентификаторе датчика.
  */
@@ -22,6 +24,14 @@
  * Byte 8: CRC
  */
 #define DS18B20ScratchpadLength 9
+
+/** Количество байт, записываемых в память датчика (Byte 2, Byte 3, Byte 4).
+ */
+#define DS18B20ScratchpadUserBytesCount 3
+
+/** Смещение в памяти датчика, с которого начинается запись.
+ */
+#define DS18B20ScratchpadOffsetUserBytes 2
 
 /** Значение 2-го байта памяти датчика (TH Register or User Byte 1).
  */
