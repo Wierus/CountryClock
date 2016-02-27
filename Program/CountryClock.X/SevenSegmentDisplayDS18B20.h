@@ -1,9 +1,13 @@
 /** SevenSegmentDisplayDS18B20.h
- * v.1.4
+ * v.1.5
  */
 
 #ifndef SEVENSEGMENTDISPLAYDS18B20_H
 #define	SEVENSEGMENTDISPLAYDS18B20_H
+
+#include "DS18B20.h"
+#include "Math.h"
+#include "SevenSegmentDisplay.h"
 
 /** Выводит значение температуры с датчика DS18B20 на 3 семисегментных индикатора.
  * @param indicatorValues Массив, в который будет выведено значение температуры. Массив должен иметь длину равную трем.

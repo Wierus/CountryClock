@@ -1,9 +1,8 @@
 /** DHT22.c
- * v.1.1
+ * v.1.2
  */
 
 #include "DHT22.h"
-#include "Delay.h"
 
 void ReadDHT22() {
     if (SendStartSignal() == DHT22TimeoutReadError) {

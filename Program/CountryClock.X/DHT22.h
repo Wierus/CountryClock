@@ -1,10 +1,11 @@
 /** DHT22.h
- * v.1.1
+ * v.1.2
  */
 
 #ifndef DHT22_H
 #define	DHT22_H
 
+#include "Delay.h"
 #include "Pins.h"
 
 #ifndef DHT22Pin

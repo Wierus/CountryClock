@@ -18,7 +18,7 @@
       <itemPath>DHT22Tasks.h</itemPath>
       <itemPath>DS18B20.h</itemPath>
       <itemPath>OneWire.h</itemPath>
-      <itemPath>SevenSegmentDisplayDS18B20Async.h</itemPath>
+      <itemPath>SevenSegmentDisplayDS18B20.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -39,7 +39,7 @@
       <itemPath>DHT22Tasks.c</itemPath>
       <itemPath>DS18B20.c</itemPath>
       <itemPath>OneWire.c</itemPath>
-      <itemPath>SevenSegmentDisplayDS18B20Async.c</itemPath>
+      <itemPath>SevenSegmentDisplayDS18B20.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

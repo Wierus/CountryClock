@@ -1,11 +1,8 @@
 /** DHT22Tasks.c
- * v.1.0
+ * v.1.2
  */
 
 #include "DHT22Tasks.h"
-#include "DHT22.h"
-#include "TaskManager.h"
-#include "Delay.h"
 
 void DHT22InitializeSensorTask() {
     DHT22InitializeSensorAction();

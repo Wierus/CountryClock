@@ -1,11 +1,10 @@
 #include "Config.h"
 #include "Delay.h"
-#include "DHT22.h"
 #include "DHT22Tasks.h"
 #include "DS18B20Async.h"
 #include "Pins.h"
 #include "SevenSegmentDisplayDHT22.h"
-#include "SevenSegmentDisplayDS18B20Async.h"
+#include "SevenSegmentDisplayDS18B20.h"
 #include "SR74HC164.h"
 #include "TaskManager.h"
 

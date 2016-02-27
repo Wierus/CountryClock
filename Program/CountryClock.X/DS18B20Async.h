@@ -1,5 +1,5 @@
 /** DS18B20Async.h
- * v.1.1
+ * v.1.2
  */
 
 #ifndef DS18B20ASYNC_H
