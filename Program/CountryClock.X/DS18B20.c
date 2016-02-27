@@ -1,13 +1,13 @@
 /** DS18B20.c
- * v.1.5
+ * v.1.6
  */
 
 #include "DS18B20.h"
 
 void DS18B20WriteScratchpad() {
     if (OneWireResetPulse() != OneWirePrecencePulse) {
-        DS18B20TemperatureValueIsCorrect = 0;
         DS18B20LastError = DS18B20PrecencePulseNotDetected;
+        DS18B20TemperatureValueIsCorrect = 0;
         return;
     }
     OneWireWriteByte(DS18B20SkipROMCommand);
@@ -20,8 +20,8 @@ void DS18B20WriteScratchpad() {
 
 void DS18B20ConvertT() {
     if (OneWireResetPulse() != OneWirePrecencePulse) {
-        DS18B20TemperatureValueIsCorrect = 0;
         DS18B20LastError = DS18B20PrecencePulseNotDetected;
+        DS18B20TemperatureValueIsCorrect = 0;
         return;
     }
     OneWireWriteByte(DS18B20SkipROMCommand);
@@ -31,8 +31,8 @@ void DS18B20ConvertT() {
 
 void DS18B20ReadScratchpad() {
     if (OneWireResetPulse() != OneWirePrecencePulse) {
-        DS18B20TemperatureValueIsCorrect = 0;
         DS18B20LastError = DS18B20PrecencePulseNotDetected;
+        DS18B20TemperatureValueIsCorrect = 0;
         return;
     }
     OneWireWriteByte(DS18B20SkipROMCommand);
@@ -52,6 +52,10 @@ void DS18B20ReadScratchpad() {
         (DS18B20ScratchpadMemory[7] != DS18B20ScratchpadByte7)
     ) {
         DS18B20LastError = DS18B20ScratchpadReadError;
+        DS18B20ReadErrorsCount++;
+        if (DS18B20ReadErrorsCount > DS18B20MaxReadErrorsCount) {
+            DS18B20TemperatureValueIsCorrect = 0;
+        }
         return;
     }
     unsigned short temperatureRegister = (DS18B20ScratchpadMemory[1] << 8) | DS18B20ScratchpadMemory[0];
@@ -61,8 +65,9 @@ void DS18B20ReadScratchpad() {
     }
     DS18B20TemperatureValue.integerPart = temperatureRegister >> DS18B20TemperatureFractionalPartMaskBitsCount;
     DS18B20TemperatureValue.fractionalPart = (temperatureRegister & DS18B20TemperatureFractionalPartMask) * (10000 / 16);
-    DS18B20TemperatureValueIsCorrect = 1;
     DS18B20LastError = DS18B20OperationOK;
+    DS18B20ReadErrorsCount = 0;
+    DS18B20TemperatureValueIsCorrect = 1;
 }
 
 void DS18B20SetResolution(DS18B20ThermometerResolutions resolution) {
