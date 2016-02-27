@@ -1,11 +1,11 @@
 /** DS18B20Async.h
- * v.1.2
+ * v.1.3
  */
 
 #ifndef DS18B20ASYNC_H
 #define	DS18B20ASYNC_H
 
-#include "DS18B20.h"
+#include "DS18B20Tasks.h"
 #include "OneWireAsync.h"
 
 /** Содержимое памяти датчика.
